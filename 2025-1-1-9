@@ -1,0 +1,8 @@
+class My_Fib:
+  def __init__(self):
+    self.Q = np.array([[], []])
+    self.lambdas = 
+  def compute_fib(self, f0, f1, indices):
+
+    #we know [F_n, F_{n-1}] = A.linalg_matrix.power(n-1)[F_1, F_0]
+    
