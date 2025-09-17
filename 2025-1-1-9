@@ -5,4 +5,10 @@ class My_Fib:
   def compute_fib(self, f0, f1, indices):
 
     #we know [F_n, F_{n-1}] = A.linalg_matrix.power(n-1)[F_1, F_0]
+    #From eigendecomposition, we know A = QΛQ^{-1}, so A.linalg_matrix.power(n-1) = QΛQ^{-1}QΛQ^{-1}......QΛQ^{-1}
+    #this cancels and yields QΛ^{n-1}Q^{-1}
+    #Since Λ is a diagonal matrix, Λ^{n-1} is the same as taking each of its elements to the n-1th power.
+    #We want shape (indices, 2, 2), must broadcast. 
+    
+
     
