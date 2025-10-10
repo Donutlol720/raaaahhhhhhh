@@ -1,0 +1,20 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import torch
+import torch.nn as nn
+import torch.optim as optim
+torch.manual_seed(2025)
+class My_MLP_Model(nn.Module):
+  def __init__(self, in_features, hidden1_features, hidden2_features, out_features):
+    super().__init__()
+    self.fc1 = nn.Linear(in_features, hidden1_features)
+    self.relu1 = My_ReLU()
+    self.fc2 = nn.Linear(hidden1_features, hidden2_features)
+    self.relu2 = My_Relu()
+    self.fc3 = nn.Linear(hidden2_features, out_features)
+
+  def forward(self, X):
+    X = self.relu1(self.fc1(X))
+    X = self.relu2(self.fc2(X))
+    X = self.fc3(X)
+    return X
