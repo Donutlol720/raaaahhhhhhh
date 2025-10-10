@@ -1,0 +1,11 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import torch
+import torch.nn as nn
+import torch.optim as optim
+torch.manual_seed(2025)
+sample_size = 1000
+x_train = torch.rand((sample_size,))
+y_train = torch.sin(2*torch.pi*x_train) + 0.1*torch.randn((sample_size,))
+print(x_train.ndim, y_train.ndim)
+print(x_train.shape, y_train.shape)
