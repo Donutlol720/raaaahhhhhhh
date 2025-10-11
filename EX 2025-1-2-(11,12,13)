@@ -1,0 +1,49 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torch.nn.functional as F
+torch.manual_seed(2025)
+class My_MLP_Model(nn.Module):
+  def __init__(self, in_features, hidden1_features, hidden2_features, out_features):
+    super().__init__()
+    self.fc1 = nn.Linear(in_features, hidden1_features)
+    self.fc2 = nn.Linear(hidden1_features, hidden2_features)
+    self.fc3 = nn.Linear(hidden2_features, out_features)
+
+  def forward(self, X):
+    X = F.relu(self.fc1(X))
+    X = F.relu(self.fc2(X))
+    X = self.fc3(X)
+    return X
+
+
+sample_size = 1000
+x_train = torch.rand((sample_size,1))
+y_train = torch.sin(2*torch.pi*x_train) + 0.1*torch.randn((sample_size,1))
+print(x_train.ndim, y_train.ndim)
+print(x_train.shape, y_train.shape)
+
+
+mymodel = My_MLP_Model(1, 3, 3, 1)
+criterion = nn.MSELoss()
+optimizer = optim.Adam(params = mymodel.parameters(), lr = 0.07)
+
+epochs = 1000
+losses = []
+for i in range(epochs):
+    y_pred = mymodel(x_train)
+    loss = criterion(y_pred, y_train)
+    if (i%10 == 0):
+        print("Epoch:"+str(i)+". Loss:"+f"{loss.item():.4f}"+".")
+
+    losses.append(loss.item())
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+plt.plot(losses)
+plt.xlabel("epoch")
+plt.ylabel("MSE loss")
+plt.show()
